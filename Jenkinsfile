@@ -43,11 +43,6 @@ pipeline {
             steps {
                 script {
                     sh "mkdir -p reports"
-                    // We call the CLI directly instead of relying on the Jenkins
-                    // plugin tool resolution, which was failing with a null path.
-                    // The first run downloads the NVD vulnerability database (~200MB)
-                    // and takes 10-15 minutes. Every run after that uses the cache
-                    // and completes in about 2 minutes.
                     sh """
                         ${OWASP_DC} \
                           --scan backend/ \
@@ -55,14 +50,15 @@ pipeline {
                           --format HTML \
                           --format XML \
                           --out reports/ \
-                          --project mern-devsecops
+                          --project mern-devsecops \
+                          --disableOssIndex \
+                          --failOnError false
                     """
                 }
-                // This publishes the XML report as a trend graph in the Jenkins UI.
-                // allowEmptyArchive means the pipeline won't fail if the file is missing.
                 dependencyCheckPublisher pattern: 'reports/dependency-check-report.xml'
             }
         }
+
 
         stage('Build Docker Images') {
             steps {

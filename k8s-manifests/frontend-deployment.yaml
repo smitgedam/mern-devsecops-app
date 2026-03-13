@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: smitgedam/mern-frontend:v1.0
+          image: smitgedam/mern-frontend:v1.8
           ports:
             - containerPort: 80
 ---

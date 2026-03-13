@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: smitgedam/mern-backend:v1.0
+          image: smitgedam/mern-backend:v1.8
           ports:
             - containerPort: 5000
           env:

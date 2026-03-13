@@ -52,7 +52,8 @@ pipeline {
                           --out reports/ \
                           --project mern-devsecops \
                           --disableOssIndex \
-                          --failOnError false
+                          --failOnCVSS 11
+
                     """
                 }
                 dependencyCheckPublisher pattern: 'reports/dependency-check-report.xml'
